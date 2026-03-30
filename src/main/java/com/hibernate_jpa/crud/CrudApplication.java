@@ -8,6 +8,7 @@ import com.hibernate_jpa.crud.dao.StudentDao;
 import com.hibernate_jpa.crud.entity.Student;
 
 import org.springframework.boot.CommandLineRunner;
+import java.util.List;
 
 @SpringBootApplication
 public class CrudApplication {
@@ -19,8 +20,11 @@ public class CrudApplication {
 			return runner -> {
 				//createStudent(studentDao);
 
-				readStudent(studentDao);
+				//readStudent(studentDao);
 				//createMultipleStudents(studentDao);
+				//queryForStudents(studentDao);
+
+				queryForStudentsByLastName(studentDao);
 			};
 		}
 
@@ -62,6 +66,21 @@ public class CrudApplication {
 			Student myStudent = studentDao.findById(theId);
 			System.out.println("Found the student: " + myStudent);
 
+			}
+
+			private void queryForStudents(StudentDao studentDao) {
+				List<Student> theStudents = studentDao.findAll();
+				for(Student tempStudent : theStudents) {
+					System.out.println(tempStudent);
+				}
+			}
+
+
+			private void queryForStudentsByLastName(StudentDao studentDao) {
+				List<Student> theStudents = studentDao.findByLastName("Santos");
+				for(Student tempStudent : theStudents) {
+					System.out.println(tempStudent);
+				}
 			}
 }
 

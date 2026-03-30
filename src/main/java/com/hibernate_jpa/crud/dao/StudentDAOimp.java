@@ -6,6 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hibernate_jpa.crud.entity.Student;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class StudentDAOimp implements StudentDao {
@@ -27,5 +31,22 @@ public StudentDAOimp(EntityManager entityManager) {
     @Override
     public Student findById(int id) {
         return entityManager.find(Student.class, id);
+    }
+
+    @Override
+    public List<Student> findAll() {
+        TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student", Student.class);
+        return theQuery.getResultList();
+      
+    }
+
+    @Override
+    public List<Student> findByLastName(String lastName) {
+        TypedQuery<Student> theQuery = entityManager.createQuery(
+            "FROM Student WHERE lastName=:theData", Student.class);
+
+        theQuery.setParameter("theData", lastName);
+        
+        return theQuery.getResultList();
     }
 }
