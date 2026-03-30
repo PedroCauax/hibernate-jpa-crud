@@ -24,7 +24,8 @@ public class CrudApplication {
 				//queryForStudents(studentDao);
 				//queryForStudentsByLastName(studentDao);
 
-				updateStudent(studentDao);
+				//updateStudent(studentDao);
+				deleteStudent(studentDao);
 
 
 			};
@@ -87,15 +88,36 @@ public class CrudApplication {
 
 			private void updateStudent(StudentDao studentDao) {
 				int studentId = 1;
+				if (studentDao.findById(1) == null) {
+					System.out.println("Update failed: Student with id " + studentId + " not found.");
+					return;
+				}else {
 				System.out.println("Retrieving student with id: " + studentId);
 				Student myStudent = studentDao.findById(studentId);
 				System.out.println("Updating student...");
 
 				myStudent.setFirstName("UpdatedName");
-				
+
 				studentDao.update(myStudent);
 
 				System.out.println("Updated student: " + myStudent);
+				}
 			}
+
+			private void deleteStudent(StudentDao studentDao) {
+				int studentId = 1;
+				if (studentDao.findById(1) == null) {
+					System.out.println("Student with id 1 not found. Cannot delete.");
+					return;
+				}
+				
+				else{
+				System.out.println("Deleting student with id: " + studentId);
+				studentDao.deleteById(studentId);
+				System.out.println("Deleted student with id: " + studentId);
+				System.out.println("Delete complete.");
+				}
+			}
+			
 }
 

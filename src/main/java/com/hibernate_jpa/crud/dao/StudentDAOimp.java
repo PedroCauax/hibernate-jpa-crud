@@ -56,4 +56,13 @@ public StudentDAOimp(EntityManager entityManager) {
         entityManager.merge(student);
     }
 
+
+    @Override
+    @Transactional 
+    public void deleteById(Integer id) {
+        Student student = entityManager.find(Student.class, id);
+        if (student != null) {
+            entityManager.remove(student);
+        }
+    }
 }
