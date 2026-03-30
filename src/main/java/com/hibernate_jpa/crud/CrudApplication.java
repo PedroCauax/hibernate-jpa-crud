@@ -19,12 +19,14 @@ public class CrudApplication {
 		public CommandLineRunner commandLineRunner(StudentDao studentDao) {
 			return runner -> {
 				//createStudent(studentDao);
-
 				//readStudent(studentDao);
 				//createMultipleStudents(studentDao);
 				//queryForStudents(studentDao);
+				//queryForStudentsByLastName(studentDao);
 
-				queryForStudentsByLastName(studentDao);
+				updateStudent(studentDao);
+
+
 			};
 		}
 
@@ -81,6 +83,19 @@ public class CrudApplication {
 				for(Student tempStudent : theStudents) {
 					System.out.println(tempStudent);
 				}
+			}
+
+			private void updateStudent(StudentDao studentDao) {
+				int studentId = 1;
+				System.out.println("Retrieving student with id: " + studentId);
+				Student myStudent = studentDao.findById(studentId);
+				System.out.println("Updating student...");
+
+				myStudent.setFirstName("UpdatedName");
+				
+				studentDao.update(myStudent);
+
+				System.out.println("Updated student: " + myStudent);
 			}
 }
 

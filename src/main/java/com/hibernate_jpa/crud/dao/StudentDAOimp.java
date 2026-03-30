@@ -46,7 +46,14 @@ public StudentDAOimp(EntityManager entityManager) {
             "FROM Student WHERE lastName=:theData", Student.class);
 
         theQuery.setParameter("theData", lastName);
-        
+
         return theQuery.getResultList();
     }
+
+    @Override
+    @Transactional
+    public void update(Student student) {
+        entityManager.merge(student);
+    }
+
 }
